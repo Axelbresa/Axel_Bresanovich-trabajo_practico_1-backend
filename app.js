@@ -21,8 +21,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname,"public")))
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(cors());
 app.use(
   helmet({
@@ -37,6 +35,12 @@ const PORT = process.env.PORT || 3200;
 
 //static files
  app.use(express.static(path.join(__dirname,"public")))
+
+
+app.use(require('./src/routes/comentario_ruta')); 
+app.use(require('./src/routes/usuario_ruta')); 
+app.use(require('./src/routes/post_ruta')); 
+
 
 //arrancampos el servidor
 app.listen(PORT, function (req, res) {
