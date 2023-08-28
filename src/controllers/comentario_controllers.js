@@ -1,7 +1,9 @@
 // TODO: Crear controladores para cada una de las rutas de reserva.
 const { where } = require ("sequelize");
-const User = require("../models/comentario_models");
+const post = require("../models/post_models");
+const comentario=require("../models/comentario_models")
 const ctrl = {};
+
 
 
 // ==========================================
@@ -11,13 +13,15 @@ const ctrl = {};
 // Obtener todas las reservas
 ctrl.listadoComentario= async (req, res)=>{
     try {
-      const reservas = await User.findAll({
-          where: {
-              estado: true
-          }
+      const Post = await comentario.findAll({
+        
+            model: post,
+         
+            
+          
       });
   
-      return res.json(reservas);
+      return res.json(Post);
   } catch (error) {
       console.log('Error al obtener las reservas', error);
       return res.status(500).json({
@@ -30,7 +34,7 @@ ctrl.listadoComentario= async (req, res)=>{
 ctrl.obtenerUnComentario= async (req, res)=>{
     try {
       const { id } = req.params;
-      const reserva = await User.findOne({
+      const reserva = await comentario.findOne({
           whare: {
               estado: true,
               id
@@ -48,13 +52,17 @@ ctrl.obtenerUnComentario= async (req, res)=>{
 // Crear una reserva
 ctrl.crearComentario = async (req, res) => {
     const {    
-    comentario } = req.body;
+    comentario,
+    postid } = req.body;
   
       try{
-        const NuevaReserva = new User  ({  
-         comentario })
+        const nuevo_usuario = new comentario  ({  
+          comentario,
+          postid
+        })
+
   
-          await NuevaReserva.save()
+          await nuevo_usuario.save()
   
           return res.status(201).json({
             message: 'Se creo la reserva'
@@ -69,6 +77,7 @@ ctrl.crearComentario = async (req, res) => {
       }
   
   };
+
 
 
 

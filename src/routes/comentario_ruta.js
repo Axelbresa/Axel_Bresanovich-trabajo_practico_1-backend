@@ -4,6 +4,7 @@ const {
  crearComentario,
  obtenerUnComentario
   } = require("../controllers/comentario_controllers");
+ // require("../middwars/validationschema")
 
 
 const router = require('express').Router();
@@ -16,10 +17,12 @@ const router = require('express').Router();
 router.get('/apis/', listadoComentario);
  
 // Crear una reserva
-router.post('/api/',crearComentario);
+router.post('/api/:postId',crearComentario);
 
 //obtener una reserva
 router.get("/api/:id", obtenerUnComentario);
+
+//obtener los Middlewares
 
 
  module.exports = router;

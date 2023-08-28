@@ -38,9 +38,9 @@ const PORT = process.env.PORT || 3200;
  app.use(express.static(path.join(__dirname,"public")))
 
 
-app.use("/c",require('./src/routes/comentario_ruta')); 
  app.use("/u",require('./src/routes/usuario_ruta')); 
  app.use("/p",require('./src/routes/post_ruta')); 
+ app.use("/c",require('./src/routes/comentario_ruta')); 
 
 
 //arrancampos el servidor

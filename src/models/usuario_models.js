@@ -20,6 +20,10 @@ const usuario = sequelize.define(
       type: DataTypes.STRING(100),
       allowNull: false,
     },
+    correo: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
     password: {
         type: DataTypes.STRING(100),
         allowNull: false,

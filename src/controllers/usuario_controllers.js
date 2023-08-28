@@ -49,13 +49,16 @@ ctrl.crearUsuarios = async (req, res) => {
     const {    
     nombre_completo,
     usuario,
+    correo,
     password } = req.body;
   
       try{
         const Usuario = new User  ({ 
           nombre_completo,
         usuario,
-       password 
+        correo,
+       password ,
+    
           })
   
           await Usuario.save()

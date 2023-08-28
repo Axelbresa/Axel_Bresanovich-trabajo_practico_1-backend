@@ -6,21 +6,17 @@ const {sequelize} = require('../database/db');
 // Uno a uno
 
 // Usuario tiene una direccion
-// añadir una clave foranea userId a la tabla addresses
+// añadir una clave foranea userId a la tabla 
 User.hasMany(Post, {  foreignKey: "usuario_id", sourceKey: "id" });
 
-// Añade una clave userId a la tabla addresses
+// Añade una clave userId a la tabla 
 Post.belongsTo(User, {foreignKey: "usuario_id", targetKey: 'id' });
 
-Post.hasMany(comentario, { foreignKey:"postId", sourceKey:"id"})
-comentario.belongsTo(Post, {foreignKey:"postId", targetKey:"id"})
-// Uno a muchos, 1 a N
-// Usuario va a tener muchos posts o publicaciones
-// Se añade una clave userId a la tabla posts
-// User.hasMany(Post, { as: "publicaciones", foreignKey: "autorId" });
+Post.hasMany(comentario, { foreignKey:"postId", sourceKey:"id"});
 
-// // Se añade una clave userId a la tabla posts
-// Post.belongsTo(User, { as: "autor" });
+// Añade una clave userId a la tabla 
+
+comentario.belongsTo(Post, {foreignKey:"postId", targetKey:"id"});
 
 User.sync().then(()=>{
     console.log('se creo la tabla de usuarios')

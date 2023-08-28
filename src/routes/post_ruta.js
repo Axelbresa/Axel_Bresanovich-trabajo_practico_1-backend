@@ -19,7 +19,7 @@ const router = require('express').Router();
 router.get('/apis/', listadoPost);
  
 // Crear una reserva
-router.post('/crear-post',crearPost);
+router.post('/api/',crearPost);
 
 //obtener una reserva
 router.get("/api/:id", obtenerUnPost);

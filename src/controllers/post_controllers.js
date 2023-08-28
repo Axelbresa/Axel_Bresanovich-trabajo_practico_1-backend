@@ -1,6 +1,7 @@
 // TODO: Crear controladores para cada una de las rutas de reserva.
 const { where } = require ("sequelize");
-const User = require("../models/post_models");
+const post = require("../models/post_models");
+const user=require("../models/usuario_models")
 const ctrl = {};
 
 
@@ -12,13 +13,15 @@ const ctrl = {};
 // Obtener todas las reservas
 ctrl.listadoPost= async (req, res)=>{
     try {
-      const reservas = await User.findAll({
-          where: {
-              estado: true
+      const Post = await post.findAll({
+          include: {
+            model: user,
+            as: 'usuario',
+            attributes: ['nombre_completo', "correo"]
           }
       });
   
-      return res.json(reservas);
+      return res.json(Post);
   } catch (error) {
       console.log('Error al obtener las reservas', error);
       return res.status(500).json({
@@ -31,7 +34,12 @@ ctrl.listadoPost= async (req, res)=>{
 ctrl.obtenerUnPost= async (req, res)=>{
     try {
       const { id } = req.params;
-      const reserva = await User.findOne({
+      const reserva = await post.findOne({
+        include: {
+          model: user,
+          as: 'usuario',
+          attributes: ['nombre_completo', "correo"]
+        },
           whare: {
               estado: true,
               id
@@ -51,15 +59,16 @@ ctrl.crearPost = async (req, res) => {
     const {    
     titulo,
     contenido,
-    postId } = req.body;
+    usuario_id } = req.body;
   
       try{
-        const NuevaReserva = new User  ({  
+        const nuevo_usuario = new post  ({  
          titulo,
          contenido,
-       postId })
+       usuario_id })
+
   
-          await NuevaReserva.save()
+          await nuevo_usuario.save()
   
           return res.status(201).json({
             message: 'Se creo la reserva'
@@ -79,7 +88,7 @@ ctrl.crearPost = async (req, res) => {
 ctrl.actualizarPost=async(req, res)=>{
     try {
       const { id } = req.params;
-      const reserva = await User.findByPk(id);
+      const reserva = await post.findByPk(id);
       await reserva.update(req.body)
       return res.json({
           message: 'Reserva actualizada exitosamente'
@@ -102,7 +111,7 @@ ctrl.EliminarPost = async (req, res)=>{
               message: 'No se ha enviado el id de la reserva'
           })
       }
-      const reserva = await User.findByPk(id);
+      const reserva = await post.findByPk(id);
       await reserva.update({ estado: false });
       return res.json({ message: 'Reserva se eliminó correctamente' })
   } catch (error) {
