@@ -1,5 +1,6 @@
 // TODO: Crear modelo de datos de usuario
 const { DataTypes, sequelize } = require("../database/db");
+//require("./usuario_models")
 
 const post = sequelize.define(
   "Reserva",
@@ -46,9 +47,15 @@ const post = sequelize.define(
   }
 );
 
+
+
+// post.belongsTo(usuario)
+// Usuario.hasMany(post)
+// await post.sync();
+
 // Crear tabla si no existe ({force: true} borra y crea la tabla)
-post.sync({ force: false }).then(() => {
-  console.log("Tabla de post creada");
-});
+// post.sync({ force: false }).then(() => {
+//   console.log("Tabla de post creada");
+// });
 
 module.exports = post;

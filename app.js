@@ -9,7 +9,8 @@ const path = require("path");
 
 require("dotenv").config();
 
-const { sequelize } = require("./src/database/db");
+const  sequelize  = require("./src/database/relaciones");
+
 
 
 const app = express();
@@ -37,9 +38,9 @@ const PORT = process.env.PORT || 3200;
  app.use(express.static(path.join(__dirname,"public")))
 
 
-app.use(require('./src/routes/comentario_ruta')); 
-app.use(require('./src/routes/usuario_ruta')); 
-app.use(require('./src/routes/post_ruta')); 
+app.use("/c",require('./src/routes/comentario_ruta')); 
+ app.use("/u",require('./src/routes/usuario_ruta')); 
+ app.use("/p",require('./src/routes/post_ruta')); 
 
 
 //arrancampos el servidor

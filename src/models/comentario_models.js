@@ -1,5 +1,6 @@
 // TODO: Crear modelo de datos de usuario
 const { DataTypes, sequelize } = require("../database/db");
+//require("./post_models")
 
 const comentario = sequelize.define(
   "Reserva",
@@ -42,10 +43,14 @@ const comentario = sequelize.define(
     tableName: "comentarios",
   }
 );
+//  comentario.belongsTo(post);
+//  post.hasMany(comentario);
+
+//  await comentario.sync({ alter: true});
 
 // Crear tabla si no existe ({force: true} borra y crea la tabla)
-comentario.sync({ force: false }).then(() => {
-  console.log("Tabla de comentarios creada");
-});
+// comentario.sync({ force: false }).then(() => {
+//   console.log("Tabla de comentarios creada");
+// });
 
 module.exports = comentario;
